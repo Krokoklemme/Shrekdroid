@@ -3,6 +3,7 @@ package com.krokoklemme.shrekdroid;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -43,6 +46,33 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayAdapter<Category> categoryArrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item);
         final ArrayAdapter<Category.Unit> unitArrayAdapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_dropdown_item);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Resources resources = getResources();
+
+                final Category time = new Category(resources.getString(R.string.time));
+                time.addUnit(resources.getString(R.string.ms), "ms", 5700000.0);
+                time.addUnit(resources.getString(R.string.sec), "sec", 5700.0);
+                time.addUnit(resources.getString(R.string.min), "min", 95.0);
+                time.addUnit(resources.getString(R.string.hours), "h", 1.58333);
+                time.addUnit(resources.getString(R.string.days), "d", 0.0659722);
+                time.addUnit(resources.getString(R.string.weeks), "w", 0.0094246);
+
+                final Category distance = new Category(resources.getString(R.string.distance));
+                distance.addUnit(resources.getString(R.string.inch), "'", 96.0);
+                distance.addUnit(resources.getString(R.string.foot), "\"", 8.0);
+                distance.addUnit(resources.getString(R.string.yard), "yd", 2.66667);
+                distance.addUnit(resources.getString(R.string.mile), "m", 0.00151515);
+                distance.addUnit(resources.getString(R.string.mm), "mm", 2438.4);
+                distance.addUnit(resources.getString(R.string.cm), "cm", 243.84);
+                distance.addUnit(resources.getString(R.string.meter), "m", 2.4384);
+                distance.addUnit(resources.getString(R.string.km), "km", 0.0024384);
+
+                categoryArrayAdapter.addAll(time, distance);
+            }
+        }).start();
 
         categoryArrayAdapter.setNotifyOnChange(true);
         unitArrayAdapter.setNotifyOnChange(true);
@@ -81,35 +111,14 @@ public class MainActivity extends AppCompatActivity {
         categorySelection.setAdapter(categoryArrayAdapter);
         unitSelection.setAdapter(unitArrayAdapter);
 
-        Resources resources = getResources();
-
-        Category time = new Category(resources.getString(R.string.time));
-        time.addUnit(resources.getString(R.string.ms), "ms", 5700000.0);
-        time.addUnit(resources.getString(R.string.sec), "sec", 5700.0);
-        time.addUnit(resources.getString(R.string.min), "min", 95.0);
-        time.addUnit(resources.getString(R.string.hours), "h", 1.58333);
-        time.addUnit(resources.getString(R.string.days), "d", 0.0659722);
-        time.addUnit(resources.getString(R.string.weeks), "w", 0.0094246);
-
-        Category distance = new Category(resources.getString(R.string.distance));
-        distance.addUnit(resources.getString(R.string.inch), "'", 96.0);
-        distance.addUnit(resources.getString(R.string.foot), "\"", 8.0);
-        distance.addUnit(resources.getString(R.string.yard), "yd", 2.66667);
-        distance.addUnit(resources.getString(R.string.mile), "m", 0.00151515);
-        distance.addUnit(resources.getString(R.string.mm), "mm", 2438.4);
-        distance.addUnit(resources.getString(R.string.cm), "cm", 243.84);
-        distance.addUnit(resources.getString(R.string.meter), "m", 2.4384);
-        distance.addUnit(resources.getString(R.string.km), "km", 0.0024384);
-
-        categoryArrayAdapter.addAll(time, distance);
-
         managingDialog = new AlertDialog.Builder(MainActivity.this)
                 .setTitle(R.string.manage)
                 .setIcon(R.drawable.shrek)
                 .setAdapter(categoryArrayAdapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(MainActivity.this, categoryArrayAdapter.getItem(i).getName(), Toast.LENGTH_SHORT).show();
+                        Category category = categoryArrayAdapter.getItem(i);
+                        Intent intent = new Intent();
                     }
                 })
                 .setNegativeButton(R.string.back, new DialogInterface.OnClickListener() {
@@ -157,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.menuGithub: {
+                Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Krokoklemmi/Shrekdroid"));
+
+                if (githubIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(githubIntent);
+                }
                 break;
             }
         }
@@ -165,11 +179,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onConvertClick(View view) {
-        Toast.makeText(MainActivity.this, "not yet", Toast.LENGTH_LONG).show();
+        Category.Unit unit = (Category.Unit)unitSelection.getSelectedItem();
+        double amount = Double.parseDouble(input.getText().toString());
+
+        if (inShrekMode) {
+            result.setText(String.format(Locale.ROOT, "%f %s", amount * unit.getValue(), unit.getSymbol()));
+        }
+        else {
+            result.setText(String.format(Locale.ROOT, "%f Shreks", amount * (1.0 / unit.getValue())));
+        }
     }
 
     public void onModeToggled(View view) {
         inShrekMode = !inShrekMode;
         menu.findItem(R.id.menuShrekMode).setChecked(inShrekMode);
+
+        if (inShrekMode) {
+            input.setHint("# Shreks");
+        }
+        else {
+            Category.Unit unit = (Category.Unit)unitSelection.getSelectedItem();
+            input.setHint("# " + unit.getName());
+        }
     }
 }
