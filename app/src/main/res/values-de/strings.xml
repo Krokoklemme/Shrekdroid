@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shrek_mode">Shrek-Modus</string>
+    <string name="convert">Umwandeln</string>
+    <string name="amount"># Umwandeln</string>
+    <string name="manage">Kategorien verwalten</string>
+    <string name="about">Über Shrekdroid</string>
+    <string name="manage_short">Kategorien</string>
+
+    <string name="back">Zurück</string>
+    <string name="add_new">Neu</string>
+
+    <string name="time">Zeit</string>
+    <string name="ms">Millisekunden</string>
+    <string name="sec">Sekunden</string>
+    <string name="min">Minuten</string>
+    <string name="hours">Stunden</string>
+    <string name="days">Tage</string>
+    <string name="weeks">Wochen</string>
+
+    <string name="distance">Entfernung</string>
+    <string name="inch">Zoll</string>
+    <string name="foot">Fuß</string>
+    <string name="mile">Meilen</string>
+    <string name="cm">Zentimeter</string>
+</resources>

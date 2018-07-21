@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/verticalMargin"
+    android:layout_marginBottom="@dimen/verticalMargin"
+    android:layout_marginStart="@dimen/horizontalMargin"
+    android:layout_marginEnd="@dimen/horizontalMargin"
+    tools:context=".MainActivity">
+
+    <Spinner
+        android:id="@+id/categorySelection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:spinnerMode="dialog" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/categorySelection"
+        android:layout_above="@id/shrekMode"
+        android:layout_marginLeft="@dimen/inputMargin"
+        android:layout_marginRight="@dimen/inputMargin"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:hint="@string/amount"
+            android:inputType="numberDecimal" />
+
+        <Button
+            android:id="@+id/convert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/input"
+            android:text="@string/convert"
+            android:onClick="onConvertClick" />
+
+        <Spinner
+            android:id="@+id/unitSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input"
+            android:layout_alignBottom="@id/convert"
+            android:layout_alignParentEnd="true"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/convert"
+            android:layout_centerHorizontal="true"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:textColor="@color/shrekGreen"
+            android:text="@string/app_name" />
+
+    </RelativeLayout>
+
+    <CheckBox
+        android:id="@+id/shrekMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/shrek_mode"
+        android:checked="false"
+        android:onClick="onModeToggled" />
+
+</RelativeLayout>

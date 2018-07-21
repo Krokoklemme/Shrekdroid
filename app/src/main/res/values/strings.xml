@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Shrekdroid</string>
+    <string name="shrek_mode">Shrek-Mode</string>
+    <string name="convert">Convert</string>
+    <string name="amount"># to convert</string>
+    <string name="manage">Manage Categories</string>
+    <string name="manage_short">Categories</string>
+    <string name="about">About</string>
+    <string name="github" translatable="false">GitHub</string>
+
+    <string name="back">Back</string>
+    <string name="add_new">New</string>
+
+    <string name="time">Time</string>
+    <string name="ms">Milliseconds</string>
+    <string name="sec">Seconds</string>
+    <string name="min">Minutes</string>
+    <string name="hours">Hours</string>
+    <string name="days">Days</string>
+    <string name="weeks">Weeks</string>
+
+    <string name="distance">Distance</string>
+    <string name="inch">Inch</string>
+    <string name="foot">Foot</string>
+    <string name="yard" translatable="false">Yard</string>
+    <string name="mile">Miles</string>
+    <string name="mm">Millimeter</string>
+    <string name="cm">Centimeter</string>
+    <string name="meter">Meter</string>
+    <string name="km">Kilometer</string>
+
+    <string name="aboutText">© 2018 Henning Hoppe\nShrekdroid</string>
+</resources>

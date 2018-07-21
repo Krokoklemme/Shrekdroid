@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:menuCategory="alternative" android:orderInCategory="0">
+
+        <item
+            android:id="@+id/menuManage"
+            android:icon="@drawable/manage"
+            android:title="@string/manage"
+            android:titleCondensed="@string/manage_short"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/menuShrekMode"
+            android:title="@string/shrek_mode"
+            android:titleCondensed="@string/shrek_mode"
+            android:checkable="true"
+            app:showAsAction="never" />
+
+    </group>
+
+    <group android:menuCategory="secondary">
+
+        <item
+            android:id="@+id/menuAbout"
+            android:icon="@drawable/shrek"
+            android:title="@string/about"
+            android:titleCondensed="@string/about"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/menuGithub"
+            android:icon="@drawable/github"
+            android:title="@string/github"
+            android:titleCondensed="@string/github"
+            app:showAsAction="never" />
+
+    </group>
+
+</menu>
